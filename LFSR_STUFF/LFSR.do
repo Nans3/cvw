@@ -36,37 +36,37 @@ vsim -debugdb -voptargs=+acc work.stimulus
 # view wave
 
 # Load Decoding
-do wave.do
+#do wave.do
 
 -- display input and output signals as hexidecimal values
 # Diplays All Signals recursively
-# add wave -hex -r /stimulus/*
-add wave -noupdate -divider -height 32 "ANGY"
-add wave -dec /testbench/DataAdr
-add wave -noupdate -divider -height 32 "Top"
-add wave -hex /testbench/dut/*
-add wave -noupdate -divider -height 32 "Instructions"
-add wave -noupdate -expand -group Instructions /testbench/dut/rv32single/reset
-add wave -noupdate -expand -group Instructions -color {Orange Red} /testbench/dut/rv32single/PC
-add wave -noupdate -expand -group Instructions -color Orange /testbench/dut/rv32single/Instr
-add wave -noupdate -expand -group Instructions -color Orange -radix Instructions /testbench/dut/rv32single/Instr
-add wave -noupdate -expand -group Instructions -color Orange /testbench/dut/rv32single/dp/Instr
-add wave -noupdate -expand -group Instructions -color Orange -radix Instructions /testbench/dut/rv32single/dp/Instr
-add wave -noupdate -divider -height 32 "Datapath"
-add wave -hex /testbench/dut/rv32single/dp/*
-add wave -noupdate -divider -height 32 "Control"
-add wave -hex /testbench/dut/rv32single/c/*
-add wave -noupdate -divider -height 32 "Main Decoder"
-add wave -hex /testbench/dut/rv32single/c/md/*
-add wave -noupdate -divider -height 32 "ALU Decoder"
-add wave -hex /testbench/dut/rv32single/c/ad/*
-add wave -noupdate -divider -height 32 "Data Memory"
-add wave -hex /testbench/dut/dmem/*
-add wave -noupdate -divider -height 32 "Instruction Memory"
-add wave -hex /testbench/dut/imem/*
-add wave -noupdate -divider -height 32 "Register File"
-add wave -hex /testbench/dut/rv32single/dp/rf/*
-add wave -hex /testbench/dut/rv32single/dp/rf/rf
+add wave -bin -r /stimulus/*
+#add wave -noupdate -divider -height 32 "ANGY"
+#add wave -dec /testbench/DataAdr
+#add wave -noupdate -divider -height 32 "Top"
+#add wave -hex /testbench/dut/*
+#add wave -noupdate -divider -height 32 "Instructions"
+#add wave -noupdate -expand -group Instructions /testbench/dut/rv32single/reset
+#add wave -noupdate -expand -group Instructions -color {Orange Red} /testbench/dut/rv32single/PC
+#add wave -noupdate -expand -group Instructions -color Orange /testbench/dut/rv32single/Instr
+#add wave -noupdate -expand -group Instructions -color Orange -radix Instructions /testbench/dut/rv32single/Instr
+#add wave -noupdate -expand -group Instructions -color Orange /testbench/dut/rv32single/dp/Instr
+#add wave -noupdate -expand -group Instructions -color Orange -radix Instructions /testbench/dut/rv32single/dp/Instr
+#add wave -noupdate -divider -height 32 "Datapath"
+#add wave -hex /testbench/dut/rv32single/dp/*
+#add wave -noupdate -divider -height 32 "Control"
+#add wave -hex /testbench/dut/rv32single/c/*
+#add wave -noupdate -divider -height 32 "Main Decoder"
+#add wave -hex /testbench/dut/rv32single/c/md/*
+#add wave -noupdate -divider -height 32 "ALU Decoder"
+#add wave -hex /testbench/dut/rv32single/c/ad/*
+#add wave -noupdate -divider -height 32 "Data Memory"
+#add wave -hex /testbench/dut/dmem/*
+#add wave -noupdate -divider -height 32 "Instruction Memory"
+#add wave -hex /testbench/dut/imem/*
+#add wave -noupdate -divider -height 32 "Register File"
+#add wave -hex /testbench/dut/rv32single/dp/rf/*
+#add wave -hex /testbench/dut/rv32single/dp/rf/rf
 
 
 -- Set Wave Output Items 
@@ -85,7 +85,7 @@ configure wave -childrowmargin 2
 run 300 ns
 
 -- Add schematic
-add schematic -full sim:/testbench/dut/rv32single
+#add schematic -full sim:/testbench/dut/rv32single
 
 -- Save memory for checking (if needed)
 # mem save -outfile memory.dat -wordsperline 1 /testbench/dut/dmem/RAM
