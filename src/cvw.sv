@@ -85,6 +85,10 @@ typedef struct packed {
   int           ICACHE_WAYSIZEINBYTES;
   int           ICACHE_LINELENINBITS;
   int           CACHE_SRAMLEN;
+  
+  // OUR ADDITIONS!!!!!
+  int           DCACHE_REPL;
+  int           ICACHE_REPL;
 
 // Integer Divider Configuration
 // IDIV_BITSPERCYCLE must be 1, 2, or 4
