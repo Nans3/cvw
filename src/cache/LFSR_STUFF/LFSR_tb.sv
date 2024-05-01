@@ -16,6 +16,13 @@ module stimulus ();
    logic [6:0]  Out7;
    logic [7:0]  Out8;
    logic [8:0]  Out9;
+   logic [2:0]  Outed3;
+   logic [3:0]  Outed4;
+   logic [4:0]  Outed5;
+   logic [5:0]  Outed6;
+   logic [6:0]  Outed7;
+   logic [7:0]  Outed8;
+   logic [8:0]  Outed9;
    logic  load;
    logic  select;
    logic  enable;
@@ -25,14 +32,22 @@ module stimulus ();
 //    integer desc3;
    
    // Instantiate DUT
-     LFSR #(3) dut3 (In3, clock, load, enable, Out3);
      LFSR #(4) dut4 (In4, clock, load, enable, Out4);
      LFSR #(5) dut5 (In5, clock, load, enable, Out5);
      LFSR #(6) dut6 (In6, clock, load, enable, Out6);
      LFSR #(7) dut7 (In7, clock, load, enable, Out7);
+     LFSR #(3) dut3 (In3, clock, load, enable, Out3);
      LFSR #(8) dut8 (In8, clock, load, enable, Out8);
      LFSR #(9) dut9 (In9, clock, load, enable, Out9);
 
+     assign Outed3 = (/*1'b1*/~In[0] && Outed3 == 3'b001) ? 3'd1 : Out3[2:0];
+     assign Outed4 = (/*1'b1*/~In[0] && Outed4 == 4'b001) ? 4'd1 : Out4[3:0];
+     assign Outed5 = (/*1'b1*/~In[0] && Outed5 == 5'b001) ? 5'd1 : Out5[4:0];
+     assign Outed6 = (/*1'b1*/~In[0] && Outed6 == 6'b001) ? 6'd1 : Out6[5:0];
+     assign Outed7 = (/*1'b1*/~In[0] && Outed7 == 7'b001) ? 7'd1 : Out7[6:0];
+     assign Outed8 = (/*1'b1*/~In[0] && Outed8 == 8'b001) ? 8'd1 : Out8[7:0];
+     assign Outed9 = (/*1'b1*/~In[0] && Outed9 == 9'b001) ? 9'd1 : Out9[8:0];
+     
      assign In3 = In[2:0];
      assign In4 = In[3:0];
      assign In5 = In[4:0];
@@ -40,6 +55,7 @@ module stimulus ();
      assign In7 = In[6:0];
      assign In8 = In[7:0];
      assign In9 = In[8:0];
+
 
    // Setup the clock to toggle every 1 time units 
    initial 
@@ -75,6 +91,7 @@ module stimulus ();
 	#0  load = 1'b1;
 	#10  enable = 1'b1;
 	#0  load = 1'b0;
+     #5 In = 9'b0000000;
      end
 
 endmodule // LFSR_tb

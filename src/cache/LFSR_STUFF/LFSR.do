@@ -41,16 +41,25 @@ vsim -debugdb -voptargs=+acc work.stimulus
 -- display input and output signals as hexidecimal values
 # Diplays All Signals recursively
 # add wave -uns /stimulus/counter
-add wave -uns /stimulus/dut3/data_out
-add wave -uns /stimulus/dut4/data_out
-add wave -uns /stimulus/dut5/data_out
-add wave -uns /stimulus/dut6/data_out
-add wave -uns /stimulus/dut7/data_out
-add wave -uns /stimulus/dut8/data_out
-add wave -uns /stimulus/dut9/data_out
-#add wave -noupdate -divider -height 32 "ANGY"
+
+add wave -uns /stimulus/dut9/seed
+add wave -noupdate -divider -height 32 "Values"
+add wave -uns /stimulus/Outed3
+add wave -uns /stimulus/Outed4
+add wave -uns /stimulus/Outed5
+add wave -uns /stimulus/Outed6
+add wave -uns /stimulus/Outed7
+add wave -uns /stimulus/Outed8
+add wave -uns /stimulus/Outed9
+add wave -noupdate -divider -height 32 "Binary"
+add wave -bin /stimulus/Outed3
+add wave -bin /stimulus/Outed4
+add wave -bin /stimulus/Outed5
+add wave -bin /stimulus/Outed6
+add wave -bin /stimulus/Outed7
+add wave -bin /stimulus/Outed8
+add wave -bin /stimulus/Outed9
 #add wave -dec /testbench/DataAdr
-#add wave -noupdate -divider -height 32 "Top"
 #add wave -hex /testbench/dut/*
 #add wave -noupdate -divider -height 32 "Instructions"
 #add wave -noupdate -expand -group Instructions /testbench/dut/rv32single/reset
@@ -89,7 +98,7 @@ configure wave -rowmargin 4
 configure wave -childrowmargin 2
 
 -- Run the Simulation
-run 300 ns
+run 2060 ns
 
 -- Add schematic
 #add schematic -full sim:/testbench/dut/rv32single
