@@ -40,7 +40,14 @@ vsim -debugdb -voptargs=+acc work.stimulus
 
 -- display input and output signals as hexidecimal values
 # Diplays All Signals recursively
-add wave -bin -r /stimulus/*
+# add wave -uns /stimulus/counter
+add wave -uns /stimulus/dut3/data_out
+add wave -uns /stimulus/dut4/data_out
+add wave -uns /stimulus/dut5/data_out
+add wave -uns /stimulus/dut6/data_out
+add wave -uns /stimulus/dut7/data_out
+add wave -uns /stimulus/dut8/data_out
+add wave -uns /stimulus/dut9/data_out
 #add wave -noupdate -divider -height 32 "ANGY"
 #add wave -dec /testbench/DataAdr
 #add wave -noupdate -divider -height 32 "Top"
