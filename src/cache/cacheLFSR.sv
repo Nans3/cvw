@@ -53,12 +53,10 @@ module cacheLFSR
   logic [LOGNUMWAYS-1:0] FirstZeroWay;
   logic [LOGNUMWAYS-1:0] VictimWayEnc;
   logic [LOGNUMWAYS-1:0] Curr;
-  logic [LOGNUWAY-1:0] val;
+  logic [LOGNUMWAYS-1:0] val;
 
   assign val[0] = 1'b1;
   assign val[LOGNUMWAYS-1:1] = '0;
-
-  binencoder #(NUMWAYS) hitwayencoder(HitWay, HitWayEncoded);
 
   assign AllValid = &ValidWay;
   //Ask about this NUMWAYS or NO?? Porque? Que Chingada?
