@@ -28,13 +28,21 @@
 // and limitations under the License.
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
-module cachelfsrLRU
+module cacheLFSR
   #(parameter NUMWAYS = 4, SETLEN = 9, OFFSETLEN = 5, NUMLINES = 128) (
   input  logic                clk, 
   input  logic                reset,
   input  logic                FlushStage,
+  input  logic                CacheEn,         // Enable the cache memory arrays.  Disable hold read data constant
+  input  logic [NUMWAYS-1:0]  HitWay,          // Which way is valid and matches PAdr's tag
   input  logic [NUMWAYS-1:0]  ValidWay,        // Which ways for a particular set are valid, ignores tag
+  input  logic [SETLEN-1:0]   CacheSetData,    // Cache address, the output of the address select mux, NextAdr, PAdr, or FlushAdr
+  input  logic [SETLEN-1:0]   CacheSetTag,     // Cache address, the output of the address select mux, NextAdr, PAdr, or FlushAdr
+  input  logic [SETLEN-1:0]   PAdr,            // Physical address 
   input  logic                LRUWriteEn,      // Update the LRU state
+  input  logic                SetValid,        // Set the dirty bit in the selected way and set
+  input  logic                ClearValid,      // Clear the dirty bit in the selected way and set
+  input  logic                InvalidateCache, // Clear all valid bits
   output logic [NUMWAYS-1:0]  VictimWay        // LRU selects a victim to evict
 );
 
@@ -45,13 +53,17 @@ module cachelfsrLRU
   logic [LOGNUMWAYS-1:0] FirstZeroWay;
   logic [LOGNUMWAYS-1:0] VictimWayEnc;
   logic [LOGNUMWAYS-1:0] Curr;
+  logic [LOGNUWAY-1:0] val;
+
+  assign val[0] = 1'b1;
+  assign val[LOGNUMWAYS-1:1] = '0;
 
   binencoder #(NUMWAYS) hitwayencoder(HitWay, HitWayEncoded);
 
   assign AllValid = &ValidWay;
   //Ask about this NUMWAYS or NO?? Porque? Que Chingada?
   
-  LFSR #(LOGNUMWAYS) LFSR_Update((LOGNUMWAYS)'d1, clk, reset, (~FlushStage && LRUWriteEn), Curr);
+  LFSR #(LOGNUMWAYS) LFSR_Update(val, clk, reset, (~FlushStage && LRUWriteEn), Curr);
 
   priorityonehot #(NUMWAYS) FirstZeroEncoder(~ValidWay, FirstZero);
   binencoder #(NUMWAYS) FirstZeroWayEncoder(FirstZero, FirstZeroWay);
