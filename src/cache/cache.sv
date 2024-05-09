@@ -28,7 +28,8 @@
 // and limitations under the License.
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
-module cache import cvw::*; #(parameter cvw_t P, PA_BITS, XLEN, LINELEN,  NUMLINES,  NUMWAYS, LOGBWPL, WORDLEN, MUXINTERVAL, READ_ONLY_CACHE, CACHE_REPL) (
+module cache import cvw::*; #(parameter cvw_t P,
+                              parameter PA_BITS, XLEN, LINELEN,  NUMLINES,  NUMWAYS, LOGBWPL, WORDLEN, MUXINTERVAL, READ_ONLY_CACHE, CACHE_REPL) (
   input  logic                   clk,
   input  logic                   reset,
   input  logic                   Stall,             // Stall the cache, preventing new accesses. In-flight access finished but does not return to READY
@@ -105,7 +106,7 @@ module cache import cvw::*; #(parameter cvw_t P, PA_BITS, XLEN, LINELEN,  NUMLIN
   /////////////////////////////////////////////////////////////////////////////////////////////
   // Read Path
   /////////////////////////////////////////////////////////////////////////////////////////////
-  //.clk ,.reset,.FlushStage,.ValidWay        // Which ways for a particular set are valid, ignores tag,.LRUWriteEn      // Update the LRU state,.VictimWay  // Choose read address (CacheSet).  Normally use NextSet, but use PAdr during stalls
+  .clk ,.reset,.FlushStage,.ValidWay        // Which ways for a particular set are valid, ignores tag,.LRUWriteEn      // Update the LRU state,.VictimWay  // Choose read address (CacheSet).  Normally use NextSet, but use PAdr during stalls
   // and FlushAdr when handling D$ flushes
   // The icache must update to the newest PCNextF on flush as it is probably a trap.  Trap
   // sets PCNextF to XTVEC and the icache must start reading the instruction.
@@ -123,7 +124,7 @@ module cache import cvw::*; #(parameter cvw_t P, PA_BITS, XLEN, LINELEN,  NUMLIN
     .FlushWay, .FlushCache, .ReadDataLineWay, .HitWay, .ValidWay, .DirtyWay, .HitDirtyWay, .TagWay, .FlushStage, .InvalidateCache);
 
   // Select victim way for associative caches
-  if(NUMWAYS > 1) begin:
+  if(NUMWAYS > 1) begin:vict
     if(CACHE_REPL == 0)begin
       cacheLRU #(NUMWAYS, SETLEN, OFFSETLEN, NUMLINES) cacheLRU(
         .clk, .reset, .FlushStage, .CacheEn, .HitWay, .ValidWay, .VictimWay, .CacheSetData, .CacheSetTag, .LRUWriteEn,
