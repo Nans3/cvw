@@ -124,7 +124,7 @@ module cache import cvw::*; #(parameter cvw_t P,
     .FlushWay, .FlushCache, .ReadDataLineWay, .HitWay, .ValidWay, .DirtyWay, .HitDirtyWay, .TagWay, .FlushStage, .InvalidateCache);
 
   // Select victim way for associative caches
-  if(NUMWAYS > 1) begin:vict
+  if(NUMWAYS > 1) begin:
     if(CACHE_REPL == 0)begin
       cacheLRU #(NUMWAYS, SETLEN, OFFSETLEN, NUMLINES) cacheLRU(
         .clk, .reset, .FlushStage, .CacheEn, .HitWay, .ValidWay, .VictimWay, .CacheSetData, .CacheSetTag, .LRUWriteEn,
