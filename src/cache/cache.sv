@@ -106,7 +106,7 @@ module cache import cvw::*; #(parameter cvw_t P,
   /////////////////////////////////////////////////////////////////////////////////////////////
   // Read Path
   /////////////////////////////////////////////////////////////////////////////////////////////
-  .clk ,.reset,.FlushStage,.ValidWay        // Which ways for a particular set are valid, ignores tag,.LRUWriteEn      // Update the LRU state,.VictimWay  // Choose read address (CacheSet).  Normally use NextSet, but use PAdr during stalls
+  //.clk ,.reset,.FlushStage,.ValidWay        // Which ways for a particular set are valid, ignores tag,.LRUWriteEn      // Update the LRU state,.VictimWay  // Choose read address (CacheSet).  Normally use NextSet, but use PAdr during stalls
   // and FlushAdr when handling D$ flushes
   // The icache must update to the newest PCNextF on flush as it is probably a trap.  Trap
   // sets PCNextF to XTVEC and the icache must start reading the instruction.
