@@ -106,8 +106,7 @@ module cache import cvw::*; #(parameter cvw_t P,
   /////////////////////////////////////////////////////////////////////////////////////////////
   // Read Path
   /////////////////////////////////////////////////////////////////////////////////////////////
-
-  // Choose read address (CacheSet).  Normally use NextSet, but use PAdr during stalls
+  // Which ways for a particular set are valid, ignores tag,.LRUWriteEn      // Update the LRU state,.VictimWay  // Choose read address (CacheSet).  Normally use NextSet, but use PAdr during stalls
   // and FlushAdr when handling D$ flushes
   // The icache must update to the newest PCNextF on flush as it is probably a trap.  Trap
   // sets PCNextF to XTVEC and the icache must start reading the instruction.
@@ -126,9 +125,16 @@ module cache import cvw::*; #(parameter cvw_t P,
 
   // Select victim way for associative caches
   if(NUMWAYS > 1) begin:vict
-    cacheLRU #(NUMWAYS, SETLEN, OFFSETLEN, NUMLINES) cacheLRU(
-      .clk, .reset, .FlushStage, .CacheEn, .HitWay, .ValidWay, .VictimWay, .CacheSetData, .CacheSetTag, .LRUWriteEn,
-      .SetValid, .ClearValid, .PAdr(PAdr[SETTOP-1:OFFSETLEN]), .InvalidateCache);
+    if(CACHE_REPL == 0)begin
+      cacheLRU #(NUMWAYS, SETLEN, OFFSETLEN, NUMLINES) cacheLRU(
+        .clk, .reset, .FlushStage, .CacheEn, .HitWay, .ValidWay, .VictimWay, .CacheSetData, .CacheSetTag, .LRUWriteEn,
+        .SetValid, .ClearValid, .PAdr(PAdr[SETTOP-1:OFFSETLEN]), .InvalidateCache);  
+      end
+    else if(CACHE_REPL == 1)begin:vict2
+      cacheLFSR #(NUMWAYS, SETLEN, OFFSETLEN, NUMLINES) cacheLFSR(
+        .clk, .reset, .FlushStage, .CacheEn, .HitWay, .ValidWay, .VictimWay, .CacheSetData, .CacheSetTag, .LRUWriteEn,
+        .SetValid, .ClearValid, .PAdr(PAdr[SETTOP-1:OFFSETLEN]), .InvalidateCache);  
+      end
   end else 
     assign VictimWay = 1'b1; // one hot.
 
